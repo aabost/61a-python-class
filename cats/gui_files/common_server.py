@@ -214,7 +214,7 @@ def start(port, default_server, gui_folder, db_init=None):
 
     import __main__
 
-    if "gunicorn" not in os.environ.get("SERVER_SOFTWARE", "") and not args.f:
+    if os.environ.get("ENV") != "prod" and not args.f:
         request = Request("http://127.0.0.1:{}/kill".format(port), bytes(json.dumps({}), encoding="utf-8"), method='POST')
         try:
             urlopen(request)
